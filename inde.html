@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Responsive Navbar with Click Dropdown</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* Navbar Styling */
+        .menu {
+            background: #ffffff; /* White Navbar */
+            padding: 10px 0;
+        }
+
+        /* Green Info Box */
+        .info-box {
+            background: #1d4d4f; /* Dark Green */
+            color: white;
+            padding: 15px 0;
+        }
+
+        .info-box .info-item {
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .info-box .info-item:last-child {
+            border-right: none;
+        }
+
+        .info-box i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        /* Dropdown Menu (Initially Hidden) */
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none;
+            width: 200px;
+            z-index: 100;
+        }
+
+        /* Full-Page Background Image */
+        .background-image {
+            background: url('your-image-path.jpg') no-repeat center center/cover;
+            height: calc(100vh - 160px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .reviews-section {
+    background: linear-gradient(to right, #005f97, #4aa3df); /* Blue Gradient */
+    color: white;
+}
+
+.review-card {
+    border-left: 5px solid #007bff; /* Blue Highlight */
+}
+.services-section py-5 container row col:hover{
+    transform: scale(2.1);
+}
+.doctors-section {
+    background-color: #f8f9fa; /* Light Gray Background */
+}
+
+.doctor-card {
+    background-color: white;
+    transition: 0.3s;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px); /* Slight Lift on Hover */
+}
+
+.doctor-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+ .videos-section {
+    background-color: #f8f9fa; /* Light Gray Background */
+}
+
+.video-card {
+    background-color: white;
+    transition: 0.3s;
+}
+
+.video-card:hover {
+    transform: translateY(-5px); /* Slight Lift on Hover */
+}
+
+.insurance-section {
+    background-color: #f8f9fa; /* Light Gray Background */
+}
+
+.insurance-card {
+    background-color: white;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.insurance-card img {
+    width: 100%;
+    height: 80px;
+    object-fit: contain; /* Ensures logos fit well */
+}
+
+.insurance-card:hover {
+    transform: translateY(-5px); /* Slight Lift on Hover */
+}
+.footer-section {
+    background-color: #87CEEB; /* Light Blue Background */
+    color: #000;
+}
+
+.footer-section a {
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-section .social-icons img {
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.footer-section .social-icons img:hover {
+    transform: scale(1.1);
+}
+
+.footer-section p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .info-box .info-item {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                padding-bottom: 10px;
+            }
+            .info-box .info-item:last-child {
+                border-bottom: none;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+<main class="main">
+    <!-- Menu Section -->
+    <header class="menu">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-6 col-md-3">
+                    <img src="C:\Users\HP\Downloads\images-removebg-preview (9).png" class="img-fluid">
+                </div>
+
+                <div class="col-6 col-md-9 d-flex justify-content-end">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event, 'about-menu')">About Us</a>
+                                    <ul class="sub-menu" id="about-menu">
+                                        <li><a href="#">Our Mission</a></li>
+                                        <li><a href="#">Our Team</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event, 'treatment-menu')">Treatment</a>
+                                    <ul class="sub-menu" id="treatment-menu">
+                                        <li><a href="#">Skin Care</a></li>
+                                        <li><a href="#">Hair Treatment</a></li>
+                                        <li><a href="#">Spa Therapy</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event, 'gallery-menu')">Gallery</a>
+                                    <ul class="sub-menu" id="gallery-menu">
+                                        <li><a href="#">Photos</a></li>
+                                        <li><a href="#">Videos</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event, 'blog-menu')">Blogs</a>
+                                    <ul class="sub-menu" id="blog-menu">
+                                        <li><a href="#">Latest News</a></li>
+                                        <li><a href="#">Health Tips</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event, 'training-menu')">Training & Workshop</a>
+                                    <ul class="sub-menu" id="training-menu">
+                                        <li><a href="#">Upcoming Events</a></li>
+                                        <li><a href="#">Online Sessions</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Green Info Box -->
+    <section class="info-box">
+        <div class="container">
+            <div class="row text-white text-center">
+                <div class="col-md-4 info-item">
+                    <i class="material-icons">call</i>
+                    <h6>PHONE NUMBER</h6>
+                    <p>+91 7498424841</p>
+                </div>
+                <div class="col-md-4 info-item">
+                    <i class="material-icons">mail</i>
+                    <h6>CONTACT MAIL</h6>
+                    <p>satalkarhospital@gmail.com</p>
+                </div>
+                <div class="col-md-4 info-item">
+                    <i class="material-icons">location_on</i>
+                    <h6>OUR LOCATION</h6>
+                    <p>Satalkar Lotus Superspeciality Hospital, Opp. PNG Showroom, Sarjepura, Pin Code 414001</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background Image -->
+    <section class="background-image">
+       <img src="https://content.jdmagicbox.com/comp/ahmednagar/r9/9999px241.x241.140330200413.d9r9/catalogue/satalkar-lotus-superspeciality-hospital-ahmednagar-zjpbionmzp.jpg" height="400px width=100
+       %">
+    </section>
+    <h1 style="text-align: center;">urologist hospital in ahmadnagr</h1>
+
+<section class="about-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Left Side: Text Content -->
+            <div class="col-md-6">
+                <h5 class="text-primary text-uppercase">Know About</h5>
+                <h2 class="fw-bold">SATALKAR LOTUS HOSPITAL</h2>
+                <p>
+                    We are a Superspecialty healthcare group in <strong>Urology</strong> & Gynecology with
+                    the core belief that every life is priceless. We believe in early detection,
+                    prevention, and prompt treatment of diseases to ensure the best chances
+                    of recovery at the lowest cost. Satalkar Lotus is a renowned
+                    <strong>Urologist Hospital in Ahmednagar.</strong> It is one of the pioneering
+                    health centers in Ahmednagar, serving people as per the guidelines given by
+                    the American Urology Association.
+                </p>
+                <p>
+                    <a href="#" class="text-primary fw-bold">Satalkar Lotus Hospital</a> – Urologist Hospital in Ahmednagar began with
+                    the intent of helping people recover and lead happy lives. In its 35 years
+                    of treating many people and saving innumerable lives, the hospital has
+                    gained not only trust but also a need to contact a more extensive network.
+                </p>
+            </div>
+
+            <!-- Right Side: Cashless Facilities -->
+            <div class="col-md-6">
+                <div class="p-4 border rounded shadow bg-light">
+                    <h4 class="text-center fw-bold">CASHLESS FACILITIES AVAILABLE</h4>
+                    <table class="table table-bordered mt-3">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4SjILIQoiApVcMePcXvbZjcGBXUL_QX4Sjg&s" alt="Urology Icon" class="img-fluid" width="100">
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Star Health</li>
+                                        <li>Iffco Tokio</li>
+                                        <li>Paramount</li>
+                                        <li>Future Generali</li>
+                                        <li>Religare</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThrpbvhWP1sSHz8_TBnPZjPHr9r8e2BNdIIA&s" alt="Maternity Icon" class="img-fluid" width="100">
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>MD India</li>
+                                        <li>HDFC Ergo</li>
+                                        <li>Appolo Munich</li>
+                                        <li>DHS</li>
+                                        <li>United India Parekh</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcggMAFqlDWdTG1etcm7Z6pxxjnyTSqieMMVew7JvFr_CyMrKflg4rYg3COY-_9jMMvEg&usqp=CAU" alt="Insurance Icon" class="img-fluid" width="100">
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Medi Assist</li>
+                                        <li>Max Bupa</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="vision-mission-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <!-- Our Vision -->
+            <div class="col-md-6">
+                <h4 class="fw-bold text-uppercase">Our Vision</h4>
+                <p>To constantly bring world-class facilities and technologies to the comfort of people.</p>
+            </div>
+
+            <!-- Our Mission -->
+            <div class="col-md-6">
+                <h4 class="fw-bold text-uppercase">Our Mission</h4>
+                <p>To bring about awareness on Urology & Gynecology so as to enable early diagnosis & better treatment & quality of life.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="reviews-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Side: Google Rating -->
+            <div class="col-md-4 text-white text-center">
+                <h4 class="fw-bold">OUR HAPPY PATIENTS</h4>
+                <img src="C:\Users\HP\Downloads\images__1_-removebg-preview.png" alt="Google Reviews" class="img-fluid" width="100">
+                <h5 style="colorblack">EXCELLENT</h5>
+                <p style="color:black;"><strong>Based on 237 reviews</strong></p>
+            </div>
+
+            <!-- Right Side: Reviews -->
+            <div class="col-md-8">
+                <div class="row">
+                    <!-- Review 1 -->
+                    <div class="col-md-6">
+                        <div class="review-card p-3 bg-white shadow rounded">
+                            <h6 class="fw-bold">Tanay Khairnar</h6>
+                            <p class="text-muted">2023-02-27</p>
+                            <p>⭐⭐⭐⭐⭐</p>
+                            <p style="color:black;">Very good service. Dr. Tanvar is very skillful, staff is very helpful. Specially Mrs. Kuri from insurance department, she helped a lot.</p>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="col-md-6">
+                        <div class="review-card p-3 bg-white shadow rounded">
+                            <h6 class="fw-bold">Ravindra Gondkar</h6>
+                            <p class="text-muted">2023-02-24</p>
+                            <p>⭐⭐⭐⭐⭐</p>
+                            <p style="color: black;">Very good treatment for my father Narayan Shankar Gondkar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<h1 style="text-align:center;">OUR SERVICE</h1>
+<p style="text-align:center;color: darkblue;">for happy and helthy life</p>
+
+
+
+
+
+
+<section class="services-section py-5">
+    <div class="container">
+        <!-- Row 1 -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxcjaHz7rbDfU3qsCm8X_hC4xDmfjg6PsFiA&s" alt="Kidney Transplant" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Kidney Transplant</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuMS_kn7eWKKrrtErjAFRHcfvzdgRXlAdThg&s" alt="Endo Urology" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Endo Urology</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi_Bnp4eYMRsmsS2kGL69vgjMvENgjxqSHxw&s" alt="Pediatric Urology" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Pediatric Urology</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo-F8eADSa05oJfhVPyx8CFaqpZzglYlUxPQ&s" alt="Prostate Care" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Prostate Care</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0vdEeFrcosg17ByaCj9Fzwj0NJe6dkGQ0dw&s" alt="Bladder Treatment" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Bladder Treatment</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0vdEeFrcosg17ByaCj9Fzwj0NJe6dkGQ0dw&s" alt="Urinary Tract Infection" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Urinary Tract Infection</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGqEP49kemNwOG_VgJULxgbRg2eR1rr3P_I7f0LihAFd2iuOQUxPPrsbmREXzhDlcqgOo&usqp=CAU" alt="Stone Removal" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Stone Removal</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://lh3.googleusercontent.com/proxy/UCqO5hbUOcqkvkt-8TnuhAwit-ebHN2RBtWGYausEQhI0r3pJGY-mKmoj7D0MwQeeHagQFXNQXi2CkGNnt8DOsn-yPPomd0YnJscB-JLMyTcOFgwYHaze78289GpXsUnBiRmqYH0ZaGWNeYAOlKK7Vk1ZA" alt="Male Infertility" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Male Infertility</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="service-card text-center border rounded shadow">
+                    <img src="https://lh3.googleusercontent.com/proxy/UCqO5hbUOcqkvkt-8TnuhAwit-ebHN2RBtWGYausEQhI0r3pJGY-mKmoj7D0MwQeeHagQFXNQXi2CkGNnt8DOsn-yPPomd0YnJscB-JLMyTcOFgwYHaze78289GpXsUnBiRmqYH0ZaGWNeYAOlKK7Vk1ZA" alt="Sexual Health" class="img-fluid rounded-top">
+                    <div class="service-info p-3">
+                        <h5 class="fw-bold">Health</h5>
+                        <p class="text-muted">Urology</p>
+                        <a href="#" class="btn btn-outline-dark">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<h1 style="text-align:center; color: light blue;">Experienced Doctor Team</h1>
+
+                      <section class="doctors-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Doctor 1 -->
+            <div class="col-md-4">
+                <div class="doctor-card text-center border rounded shadow p-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlI_cqxYGPO6y_-Kqj6Uy_HD1W86dEhtnDfw&s" alt="Dr. Harshwardhan Tanwar" class="img-fluid rounded">
+                    <h5 class="fw-bold mt-3">Dr. Harshwardhan Tanwar</h5>
+                    <p class="text-muted">M.S. Mch. Urology, Endourologist</p>
+                    <p><strong>Contact No.:</strong> 9665347400</p>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="col-md-4">
+                <div class="doctor-card text-center border rounded shadow p-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYAmbjODr66y0f2S09FIAtgzEMNAS_C_czUw&s" alt="Dr. Mugdha Tanwar" class="img-fluid rounded">
+                    <h5 class="fw-bold mt-3">Dr. Mugdha Tanwar</h5>
+                    <p class="text-muted">OBGY & Infertility Consultant</p>
+                    <p><strong>Contact No.:</strong> 9048685780</p>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="col-md-4">
+                <div class="doctor-card text-center border rounded shadow p-3">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt3b7DJ6Qyt5vMPmDcKfel-iRllqBdQ9LTdA&s" alt="Dr. Pankaj Mate" class="img-fluid rounded">
+                    <h5 class="fw-bold mt-3">Dr. Pankaj Mate</h5>
+                    <p class="text-muted">Advanced Laparoscopic Surgeon</p>
+                    <p><strong>Contact No.:</strong> 9970663399</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="videos-section py-5">
+    <div class="container text-center">
+        <h4 class="fw-bold">Videos - Urologist Hospital in Ahmednagar</h4>
+        <div class="row mt-4">
+            <!-- Video 1 -->
+            <div class="col-md-4">
+                <div class="video-card border p-2 rounded">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" 
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="col-md-4">
+                <div class="video-card border p-2 rounded">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" 
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="col-md-4">
+                <div class="video-card border p-2 rounded">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" 
+                        frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="mt-4 fw-bold">Cashless Facilities for Advance Gynecology & Laser Kidney Stone Surgeries</h5>
+    </div>
+</section>
+
+
+
+
+
+
+
+<section class="insurance-section py-5">
+    <div class="container text-center">
+        <h4 class="fw-bold">Cashless Facilities for Advance Gynecology & Laser Kidney Stone Surgeries</h4>
+        <div class="row mt-4">
+            <!-- Row 1 -->
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUattczr3RhGwVeIjQERYISisHquZIwBjyEA&s" alt="Aditya Birla" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAL9FPZ-8DyL1c2cJBLoBPaeqHlLAX6V2qXw&s" alt="BSS" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://i.pinimg.com/236x/80/d8/d0/80d8d0b568a9fe5600fc60c13f4578b0.jpg" alt="Health India" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/006/988/209/small/bss-letter-logo-design-on-white-background-bss-creative-initials-letter-logo-concept-bss-letter-design-vector.jpg" alt="DHS Multi Specialty Hospital" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://img.freepik.com/free-vector/ornamental-logo-with-letter-s_1017-6162.jpg" alt="Chola" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://static.vecteezy.com/system/resources/previews/017/209/699/non_2x/letter-s-logo-design-water-wave-s-logotype-free-vector.jpg" alt="MD India" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjbebNzNZfBUt16lqj9tZ6YcN4aEUsx3tE2Q&s" alt="Medi Assist" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="insurance-card border p-2 rounded">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTstnaWrPTClHCnlbWwKkQhyokpYRZvZWdyXhwHChDAvB98xjdyi1egG6zB08uzDRui9IM&usqp=CAU" alt="4S Secure Solutions" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+           
+</section>
+
+
+
+<footer class="footer-section py-4">
+    <div class="container">
+        <div class="row text-center text-md-start align-items-center">
+            <!-- Left Section: Logo & Social Media -->
+            <div class="col-md-3 text-center">
+                <img src="C:\Users\HP\Downloads\images-removebg-preview (9).png" alt="Satalkar Lotus" class="img-fluid mb-2" width="120">
+                <div class="social-icons">
+                    <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_IY167VvxTB92i2XatBmz5oeOMtiwGMjng&s" alt="Facebook" width="30"></a>
+                    <a href="#"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/83/41/19/834119bc-05dc-722f-31df-9b7a0d3a9e4e/Prod-0-0-1x_U007ephone-0-1-0-sRGB-85-220.png/1200x600wa.png" alt="Instagram" width="30"></a>
+                    <a href="#"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiP_5rf4yA_KHNlTfaxmZ6ROYx-8MF6ZAuYA&s" alt="YouTube" width="30"></a>
+                </div>
+            </div>
+
+            <!-- Center Section: Address & Email -->
+            <div class="col-md-6 text-center">
+                <p class="fw-bold">📍 Address</p>
+                <p>Satalkar Lotus Superspeciality Hospital, Servy No 7375/7, Opp PNG Showroom, B/H Gogadev Mandir, 
+                    ZP Quarter Road, Sarjepura, Pin Code 414001</p>
+                <p class="fw-bold">✉ Need support? Drop us an email</p>
+                <p>satalkarhospital@gmail.com</p>
+            </div>
+
+            <!-- Right Section: Contact & Opening Hours -->
+            <div class="col-md-3 text-center">
+                <p class="fw-bold">📞 Have a question? Call us now</p>
+                <p>+91 760967480</p>
+                <p class="fw-bold">⏰ We are open on</p>
+                <p>Mon - Sat 07:00 AM - 21:00 PM</p>
+            </div>
+        </div>
+
+        <!-- Bottom Section: Copyright -->
+        <div class="text-center mt-3">
+            <p class="mb-0">&copy; 2023 ALL RIGHTS RESERVED | Developed By - <a href="#" class="text-dark fw-bold">OMX Technologies</a></p>
+        </div>
+    </div>
+</footer>
+
+</main>
+
+<!-- Bootstrap & JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function toggleDropdown(event, menuId) {
+        event.preventDefault();
+        
+        // Close all dropdowns first
+        document.querySelectorAll('.sub-menu').forEach(menu => {
+            if (menu.id !== menuId) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // Toggle clicked dropdown
+        let menu = document.getElementById(menuId);
+        if (menu.style.display === 'inline-block') {
+            menu.style.display = 'none';
+        } else {
+            menu.style.display = 'inline-block';
+        }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown')) {
+            document.querySelectorAll('.sub-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
